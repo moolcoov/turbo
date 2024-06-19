@@ -717,7 +717,6 @@ impl Task {
         };
         aggregation_context.apply_queued_updates();
         self.clear_dependencies(dependencies, backend, turbo_tasks);
-
         Some(TaskExecutionSpec { future, span })
     }
 
@@ -1444,6 +1443,7 @@ impl Task {
             Done { .. } => {
                 let result = func(&mut state.output)?;
                 drop(state);
+
                 Ok(Ok(result))
             }
             Dirty {
